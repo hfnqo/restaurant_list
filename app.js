@@ -13,6 +13,15 @@ app.get('/', (req, res) => {
   res.render('index', { restaurants: restaurantList })
 })
 
+app.get('/restaurants/:restaurantId', (req, res) => {
+  const restaurantId = req.params.restaurantId
+  const restaurant = restaurantList.find(restaurant =>
+    restaurant.id.toString() === restaurantId
+  )
+
+  res.render('show', { restaurant })
+})
+
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`)
 })
