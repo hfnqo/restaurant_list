@@ -1,9 +1,28 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const { engine } = require('express-handlebars')
 const restaurantList = require('./restaurant.json').results
 
+// 僅在非正式環境時，使用 dotenv
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const app = express()
 const port = 3000
+
+mongoose.set('strictQuery', false)
+mongoose.connect(process.env.MONGODB_URL)
+
+const db = mongoose.connection
+
+db.on('error', () => {
+  console.log('mongodb error')
+})
+
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
 
 app.engine('handlebars', engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
