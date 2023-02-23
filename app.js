@@ -1,15 +1,12 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const { engine } = require('express-handlebars')
-const restaurantList = require('./restaurant.json').results
+const mongoose = require('mongoose')
+const Restaurant = require('./models/restaurant')
 
 // 僅在非正式環境時，使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-
-const app = express()
-const port = 3000
 
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGODB_URL)
@@ -24,14 +21,23 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+const app = express()
+const port = 3000
+
 app.engine('handlebars', engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 
+// 瀏覽全部餐廳
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList })
+  Restaurant.find()
+    .lean()
+    .then(restaurantData => res.render('index', { restaurantData }))
+    .catch(error => console.log(error))
 })
 
+// 搜尋特定餐廳
 app.get('/search', (req, res) => {
   if (!req.query.keyword.trim()) {
     return res.redirect('/')
@@ -51,9 +57,15 @@ app.get('/search', (req, res) => {
     searchResult = `找到 ${filterRestaurants.length} 筆 符合搜尋字詞「${keyword}」`
   }
 
-  res.render('index', { restaurants: filterRestaurants, keyword: keyword, searchResult: searchResult })
+  res.render('index', { restaurants: filterRestaurants, keyword, searchResult })
 })
 
+// 新增一家餐廳
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
+// 瀏覽特定餐廳
 app.get('/restaurants/:restaurantId', (req, res) => {
   const restaurantId = req.params.restaurantId
   const restaurant = restaurantList.find(restaurant =>
@@ -61,6 +73,13 @@ app.get('/restaurants/:restaurantId', (req, res) => {
   )
 
   res.render('show', { restaurant })
+})
+
+// 新增餐廳
+app.post('/restaurants', (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {

@@ -12,6 +12,7 @@
           </div>
         </div>
       </form>
+      <a href="./restaurants/new">新增餐廳</a>
     </div>
   </div>
 </div>
@@ -22,7 +23,7 @@
     <div class="col-md-10 col-12 mx-auto">
       <p>{{ searchResult }}</p>
       <div class="row row-cols-sm-3">
-        {{#each restaurants}}
+        {{#each restaurantData}}
         <a href="/restaurants/{{ this.id }}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
