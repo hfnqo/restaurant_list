@@ -24,24 +24,25 @@
       <p>{{ searchResult }}</p>
       <div class="row row-cols-sm-3">
         {{#each restaurantData}}
-        <a href="/restaurants/{{ this.id }}" class="text-secondary">
-          <div class="card mb-3">
-            <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
-            <div class="card-body p-3">
-              <h6 class="card-title mb-1">{{ this.name }}</h6>
+        <div class="card mb-3">
+          <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
+          <div class="card-body p-3">
+            <h6 class="card-title mb-1">{{ this.name }}</h6>
 
-              <div class="restaurant-category mb-1">
-                <i class="fas fa-utensils pr-2"></i> {{ this.category }}
-              </div>
-
-              <span class="badge rounded-pill bg-danger fw-normal">
-                <i class="fas fa-star fa-xs"></i>
-                {{ this.rating }}
-              </span>
-
+            <div class="restaurant-category mb-1">
+              <i class="fas fa-utensils pr-2"></i> {{ this.category }}
             </div>
+
+            <span class="badge rounded-pill bg-danger fw-normal">
+              <i class="fas fa-star fa-xs"></i>
+              {{ this.rating }}
+            </span>
           </div>
-        </a>
+
+          <div class="card-footer d-flex flex-row-reverse">
+            <a href="/restaurants/{{ this._id }}"><button class="btn btn-outline-warning">Details</button></a>
+          </div>
+        </div>
         {{/each}}
       </div>
     </div>

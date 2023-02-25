@@ -67,12 +67,12 @@ app.get('/restaurants/new', (req, res) => {
 
 // 瀏覽特定餐廳
 app.get('/restaurants/:restaurantId', (req, res) => {
-  const restaurantId = req.params.restaurantId
-  const restaurant = restaurantList.find(restaurant =>
-    restaurant.id.toString() === restaurantId
-  )
+  const { restaurantId } = req.params
 
-  res.render('show', { restaurant })
+  return Restaurant.findById(restaurantId)
+    .lean()
+    .then(restaurantData => res.render('show', { restaurantData }))
+    .catch(error => console.log(error))
 })
 
 // 新增餐廳
