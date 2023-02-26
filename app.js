@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurantData => res.render('index', { restaurantData }))
+    .then(restaurant => res.render('index', { restaurant }))
     .catch(error => console.log(error))
 })
 
@@ -69,16 +69,38 @@ app.get('/restaurants/new', (req, res) => {
 app.get('/restaurants/:restaurantId', (req, res) => {
   const { restaurantId } = req.params
 
-  return Restaurant.findById(restaurantId)
+  Restaurant.findById(restaurantId)
     .lean()
-    .then(restaurantData => res.render('show', { restaurantData }))
+    .then(restaurant => res.render('detail', { restaurant }))
     .catch(error => console.log(error))
 })
 
 // 新增餐廳
 app.post('/restaurants', (req, res) => {
-  Restaurant.create(req.body)
+  const restaurant = req.body
+
+  Restaurant.create(restaurant)
     .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// 編輯特定餐廳
+app.get('/restaurants/:restaurantId/edit', (req, res) => {
+  const { restaurantId } = req.params
+
+  Restaurant.findById(restaurantId)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+// 更新餐廳
+app.post('/restaurants/:restaurantId/edit', (req, res) => {
+  const { restaurantId } = req.params
+  const restaurantData = req.body
+  
+  Restaurant.findByIdAndUpdate(restaurantId, restaurantData)
+    .then(() => res.redirect(`/restaurants/${restaurantId}`))
     .catch(error => console.log(error))
 })
 

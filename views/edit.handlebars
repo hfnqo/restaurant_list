@@ -1,0 +1,65 @@
+<h1 class="mb-1 restaurant-show-title">修改餐廳</h1>
+<div class="container">
+  <form action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+    <div class="mb-1">
+      <label for="name" class="form-label">店名</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{ restaurant.name }}" required>
+    </div>
+
+    <div class="mb-1">
+      <label for="name_en" class="form-label">英文店名</label>
+      <input type="text" class="form-control" id="name_en" name="name_en" value="{{ restaurant.name_en }}" required>
+    </div>
+
+    <div class="mb-1">
+      <label for="category" class="form-label">分類</label>
+      <input type="text" class="form-control" id="category" name="category" list="categoryOptions" placeholder="美式" value="{{ restaurant.category }}"
+        required>
+      <datalist id="categoryOptions">
+        <option>咖啡</option>
+        <option>美式</option>
+        <option>日式料理</option>
+        <option>中東料理</option>
+        <option>義式餐廳</option>
+      </datalist>
+    </div>
+
+    <div class="mb-1">
+      <label for="image" class="form-label">圖片連結</label>
+      <input type="url" id="image" name="image" value="{{ restaurant.image }}" required>
+    </div>
+
+    <div class="mb-1">
+      <label for="location" class="form-label">地址</label>
+      <input type="text" class="form-control" id="location" name="location" placeholder="台北市信義路五段7號" value="{{ restaurant.location }}" required>
+    </div>
+
+    <div class="mb-1">
+      <label for="phone" class="form-label">電話</label>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="02 8101 8800" inputmode="numeric" value="{{ restaurant.phone }}"
+        required>
+    </div>
+
+    <div class="mb-1">
+      <label for="google_map" class="form-label">Google 地圖連結</label>
+      <input type="url" class="form-control" id="google_map" name="google_map" value="{{ restaurant.google_map }}" required>
+    </div>
+
+    <div class="mb-1">
+      <label for="rating" class="form-label">評分</label>
+      <input type="number" class="form-control" id="rating" name="rating" inputmode="numeric" min="0" max="5" step="0.1" value="{{ restaurant.rating }}"
+        required>
+    </div>
+
+    <div class="mb-1">
+      <label for="description" class="form-label">描述</label>
+      <input type="textarea" class="form-control" id="description" name="description" rows="3" value="{{ restaurant.description }}" required>
+    </div>
+
+    <div class="m-3 text-center">
+      <button type="submit" class="btn btn-outline-success">Save</button>
+      <a href="/"><button class="btn btn-outline-warning">Back</button></a>
+      <button type="reset" class="btn btn-outline-danger">Reset</button>
+    </div>
+  </form>
+</div>
