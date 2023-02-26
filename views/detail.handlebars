@@ -40,13 +40,13 @@
 
     <div class="m-3 text-center">
       <a href="/restaurants/{{ restaurant._id }}/edit">
-        <button class="btn btn-outline-warning">Edit</button>
+        <button class="btn btn-outline-danger">Edit</button>
       </a>
       <a href="/">
-        <button class="btn btn-outline-warning">Back</button>
+        <button class="btn btn-outline-danger">Back</button>
       </a>
       <form action="/restaurants/{{ restaurant._id }}/delete" method="POST" style="display: inline;">
-        <button type="submit" class="btn btn-outline-warning">Delete</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
       </form>
     </div>
   </div>
