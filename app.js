@@ -40,24 +40,24 @@ app.get('/', (req, res) => {
 // 搜尋特定餐廳
 app.get('/search', (req, res) => {
   if (!req.query.keyword.trim()) {
-    return res.redirect('/')
+    res.redirect('/')
   }
 
-  const keyword = req.query.keyword.trim()
-  let filterRestaurants = restaurantList.filter(restaurant =>
-    restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
-    restaurant.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
-    restaurant.category.includes(keyword)
-  )
+  const keywords = req.query.keyword.trim()
+  const keyword = req.query.keyword.toLowerCase().trim()
 
-  let searchResult = ''
-  if (filterRestaurants.length <= 0) {
-    searchResult = `找不到符合搜尋字詞「${keyword}」`
-  } else {
-    searchResult = `找到 ${filterRestaurants.length} 筆 符合搜尋字詞「${keyword}」`
-  }
-
-  res.render('index', { restaurants: filterRestaurants, keyword, searchResult })
+  Restaurant.find()
+    .lean()
+    .then(restaurantData => {
+      const filterRestaurants = restaurantData.filter(
+        data => 
+          data.name.toLowerCase().includes(keyword) || 
+          data.name_en.toLowerCase().includes(keyword) || 
+          data.category.includes(keyword)
+      )
+      res.render('index', { restaurant: filterRestaurants, keywords })
+    })
+    .catch(error => console.log(error))
 })
 
 // 新增一家餐廳
