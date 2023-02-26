@@ -104,6 +104,15 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// 刪除餐廳
+app.post('/restaurants/:restaurantId/delete', (req, res) => {
+  const { restaurantId } = req.params
+
+  Restaurant.findByIdAndDelete(restaurantId)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`)
 })
