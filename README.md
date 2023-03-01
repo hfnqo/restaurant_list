@@ -1,4 +1,4 @@
-## 專案畫面
+## 我的餐廳清單
 ![Restaurant List](/public/image/snapshop_1.png)
 ![Restaurant List](/public/image/snapshop_2.png)
 
@@ -14,7 +14,6 @@
 - 編輯餐廳
 - 刪除餐廳
 
-
 ## 開始使用
 1. 請先確認是否有安裝 Node.js 與 npm
 
@@ -27,7 +26,7 @@
 
 4. 安裝完成後，設定環境變數，連線 MongoDB
 ```
-  MONGODB_URL = mongodb+srv://[username:password]@cluster0.xxxxxxx.xxxxxxx.net/[database]?retryWrites=true&w=majority
+  MONGODB_URI=mongodb+srv://<Your MongoDB Account>:<Your MongoDB Password>@cluster0.xxxx.xxxx.net/<Your MongoDB Table><?retryWrites=true&w=majority
 ```
 
 5. 執行專案
@@ -37,8 +36,8 @@
 
 6. 若看到此行訊息表示成功運行，開啟瀏覽器到以下網址
 ```
-   Listening on http://localhost:3000
-   mongodb connected!
+  Listening on http://localhost:3000
+  mongodb connected!
 ```
 
 7. 若想暫停使用，請在終端機輸入以下指令
@@ -58,6 +57,7 @@
 - Express-handlebars ^6.0.7
 - MongoDB
 - Mongoose ^6.9.2
+- Method-override v3.0.0
 - Bootstrap
 - Font-awesome
 - dotenv ^16.0.3
