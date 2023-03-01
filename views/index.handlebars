@@ -4,17 +4,29 @@
     <div class="search-bar-inner">
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" value="{{ keywords }}" aria-label="Restaurant Name..."
-            aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+        <div class="d-flex flex-sm-row align-items-sm-center gap-2">
+          <div class="input-group">
+            <input type="text" name="keyword"
+              class="form-control" placeholder="輸入餐廳、分類" value="{{ keywords }}" 
+              aria-label="Restaurant Name..." aria-describedby="search-button">
+            <button class="btn btn-major" type="submit" 
+              id="search-button"><i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <div class="col-3 mb-4">
+            <form action="/" method="POST"></form>
+            <label for="sort"></label>
+            <select class="form-select" name="sort" id="sort">
+              <option selected>Sort</option>
+              <option value="A">A → Z</option>
+              <option value="Z">Z → A</option>
+              <option value="category">類別</option>
+              <option value="location">地區</option>
+            </select>
           </div>
         </div>
       </form>
-      <a href="/restaurants/new" class="d-flex justify-content-end mt-1" style="text-decoration: none;">
-        <button type="submit" class="btn btn-danger">Create</button>
-      </a>
     </div>
   </div>
 </div>
