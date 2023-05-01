@@ -1,8 +1,8 @@
-## 我的餐廳清單
+# 我的餐廳清單
 ![Restaurant List](/public/image/snapshop_1.png)
 ![Restaurant List](/public/image/snapshop_2.png)
 
-# 介紹
+## 介紹
 紀錄屬於自己的餐廳清單，可以瀏覽餐廳、查看詳細資訊，以及連結到地圖。
 
 ## 功能列表
