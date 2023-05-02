@@ -18,14 +18,23 @@
     <!-- navigation -->
     <nav class="navbar navbar-light bg-light">
       <div class="container d-flex justify-content-between">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand me-auto" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
             width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-          我的餐廳清單
+            {{#if isAuthenticated}}
+              {{ user.name }} 的餐廳清單
+            {{else}}
+              我的餐廳清單
+            {{/if}}
         </a>
-        <a href="/restaurants/new" class="d-flex justify-content-end mt-1" style="text-decoration: none;">
+        <a href="/restaurants/new" class="d-flex justify-content-end mx-2" style="text-decoration: none;">
           <button type="submit" class="btn btn-danger">Create</button>
         </a>
+        {{#if isAuthenticated}}
+          <a href="/users/logout" class="btn btn-outline-success">Logout</a>
+        {{else}}
+          <a href="/users/login" class="btn btn-outline-success">Login</a>
+        {{/if}}
       </div>
     </nav>
 
