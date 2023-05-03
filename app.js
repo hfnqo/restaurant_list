@@ -3,6 +3,11 @@ const session = require('express-session')
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const routes = require('./routes')
 
 const usePassport = require('./config/passport')
@@ -15,7 +20,7 @@ app.engine('handlebars', engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
